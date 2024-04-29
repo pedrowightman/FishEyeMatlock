@@ -120,46 +120,7 @@ public class FishEyeMatlock {
         }
         
         double[][] mi = MatInverse.invert(mt);
-/*
-        for(int i=0; i<3; i++){
-            for(int j=0; j<3; j++){
-                System.out.print(""+m[i][j]+"\t");
-            }
-            System.out.println();
-        }
-        System.out.println("\n");
-        
-        
-        
-        for(int i=0; i<3; i++){
-            for(int j=0; j<3; j++){
-                System.out.print(""+mi[i][j]+"\t");
-            }
-            System.out.println("");
-        }
-        System.out.println("");
-        
-        
-        Punto p = new Punto(-1.752478, 4.887933, 0);
-        
-        Punto p2 = matlock(p,m);
-        
-        System.out.println(p);
-        System.out.println(p2);
-        
-        Punto[] puntos = loadPuntos();
-        
-        for (Punto punto : puntos) {
-            System.out.println(punto);
-        }
-        
-        Punto[] puntosc = matlock(puntos,m);
-        
-        for (Punto punto : puntosc) {
-            System.out.println(punto);
-        }
-        
-        */
+
         Punto[] puntos = loadPuntos();
         Punto[] puntosc = matlock(puntos,m);
         Punto[] puntosc2;
