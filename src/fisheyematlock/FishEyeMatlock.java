@@ -58,10 +58,10 @@ public class FishEyeMatlock {
     }
     
     
-    public static Punto[] loadPuntos(){
+    public static Punto[] loadPuntos(String filename){
         ArrayList<Punto> a = new ArrayList();
         
-        File f = new File("puntos.csv");
+        File f = new File(filename);
         
         String[] data;
         String dataLine;
@@ -109,7 +109,7 @@ public class FishEyeMatlock {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        
+        //Key matrix
         double[][] m= {{1.0,2.0,3.0},{-2.0,8.0,1.0},{9.0,3.0,5.0}};
         
         double[][] mt = new double[3][3];
@@ -121,8 +121,8 @@ public class FishEyeMatlock {
         
         double[][] mi = MatInverse.invert(mt);
 
-        Punto[] puntos = loadPuntos();
-        Punto[] puntosc = matlock(puntos,m);
+        Punto[] puntos = loadPuntos("takoradi.csv"); //Load from file
+        Punto[] puntosc = matlock(puntos,m); //Apply the matlock algorithm to the points
         Punto[] puntosc2;
         Punto puntoctemp;
         //double[] rs = {0, 1, 10, 50, 100, 500, 100};
@@ -164,12 +164,10 @@ public class FishEyeMatlock {
         for (double s : rs) {
             for(double t : rt){
                 for(int k : rk){
-                //System.out.println(""+s+", "+t);
-                
-                    //System.out.println(""+s+", "+t+", "+i);
-                    do{
-                        trying++;
-                        //System.out.println(trying++);
+                    do{ //Calculate the Fisheye Matlock disposable matrix. Given that not all matrices generate the desired level of noise
+                        //then, a while loop is necessary to find the appropriate.
+                        trying++; //Couting trials
+                        
                         //Obtain original points from path, and obfuscate the location
                         x[0] = puntos[i-k].toVect(s,t);
                         x[1] = puntos[i].toVect(s,t);
@@ -205,12 +203,6 @@ public class FishEyeMatlock {
                         distt[j] = puntosc2[j].calcTDist(puntos[j]);
                     }
 
-                    /*if(s == 100 && k==100){
-                        for (Double d : dist) {
-                            System.out.println(d/Punto.GRAD_TO_MTS);
-                        }
-                    }*/
-                    
                     if(s == 100 && k==1){
                         for (Punto d : puntosc2) {
                             System.out.print(d);
@@ -219,16 +211,11 @@ public class FishEyeMatlock {
                     
                     
                     tr = new Result(s,t,i,k,dist, distt);
-                    //System.out.println(tr.getDiffAtI());
-                    //}while(Double.isNaN(tr.max) || tr.getDiffAtI()/(360.0/40400000) > s*1000);
-                    //}while(Double.isNaN(tr.max) || tr.getDiffAtI() > s/Punto.GRAD_TO_MTS);
-                    //if the maximum is not a nan, then add the result
-                    //System.out.println(tr.getDiffAt(i));
                     results.add(tr);
                     trying=0;
                         
                 
-                
+                //Add the results of the experiments
                 max = results.get(0).max;
                 min = results.get(0).min;
                 maxt = results.get(0).maxt;
@@ -299,7 +286,6 @@ public class FishEyeMatlock {
         
         
         System.out.println("s,t,k,i,max,min,maxav,minav,maxav25,minav25,maxav10,minav10,diffAtI,maxt,mint,maxavt,minavt,maxavt10,minavt10");
-        //System.out.println("Resultados: "+results_all.size());
         
         for (int q = 0; q < results_all.size(); q++) {
             System.out.println(results_all.get(q));
