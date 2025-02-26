@@ -1,14 +1,6 @@
 # FishEye Matlock
 
-This work presents a RFE mechanism for Matlock-
-coded location data, called FishEye Matlock. This technique
-generates disposable random key matrices that only reveal a
-desired portion of the path, with the possibility for the user to
-add random noise to protect the revealed data and to control the
-amount of noise added to the rest of the path. This allows secure
-information sharing with particular actors, like law enforcement,
-so that the information of interest is shared without affecting
-the user’s privacy. 
+This work presents a RFE mechanism for Matlock-coded location data, called FishEye Matlock, created by Pedro Wightman, Nicoás Avilán, and Augusto Salazar. This technique generates disposable random key matrices that only reveal a desired portion of the path, with the possibility for the user to add random noise to protect the revealed data and to control the amount of noise added to the rest of the path. This allows secure information sharing with particular actors, like law enforcement, so that the information of interest is shared without affecting the user’s privacy. 
 
 The code, written in Java, implements the code used for testing in the paper "FishEye Matlock: A Random Functional Encoding Mechanism for Secure Location Sharing" to be published in IEEE Latin America Transactions.
 
